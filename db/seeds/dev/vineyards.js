@@ -15,12 +15,12 @@ exports.seed = function(knex, Promise) {
           return knex('wines').insert([
             {vineyard_id: vineyard[0],
               name: 'Something Red',
-              abv: 4.3,
+              abv: 4,
               color: 'red',
               type: 'cabernet sauvignon'}, 
             {vineyard_id: vineyard[0],
             name: 'Something White',
-            abv: 4.1,
+            abv: 4,
             color: 'white',
             type: 'Pino Gris'}
           ])
