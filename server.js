@@ -15,7 +15,7 @@ app.locals.title = 'NC Vineyards';
 
 
 app.get('/', (request, response) => {
-  response.status(200).json('hi')
+  response.status(200).json('NC Vineyards')
 })
 
 app.get('/api/v1/vineyards', (request, response) => {
@@ -62,9 +62,6 @@ app.delete('/api/v1/wines/:id', (request, response) => {
 
 });
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
-}); 
 
 
 app.listen(app.get('port'), () => {
