@@ -11,11 +11,11 @@ app.use( bodyParser.json() );
 
 app.set('port', process.env.port || 3000);
 
-app.locals.title = 'NC Vineyards';
+// app.locals.title = 'NC Vineyards';
 
 
 app.get('/', (request, response) => {
-  response.status(200).json('hi')
+  response.status(200).json('NC Vineyards')
 })
 
 // app.get('/api/v1/vineyards', (request, response) => {
@@ -70,9 +70,6 @@ app.get('/', (request, response) => {
 
 // });
 
-process.on('uncaughtException', function (err) {
-    console.log(err);
-}); 
 
 
 app.listen(app.get('port'), () => {
