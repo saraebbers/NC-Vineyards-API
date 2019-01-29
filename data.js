@@ -1,4 +1,4 @@
-const vineyards = [
+module.exports = [
   {
     name: 'Addison Farms Vineyard',
     region: 'Mountains',

@@ -4,9 +4,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: {
-      filename: 'postgres://localhost/vineyards'
-    },
+    connection: 'postgres://localhost/vineyards',
     migrations: {
       directory: './db/migrations'
     },
@@ -27,9 +25,7 @@ module.exports = {
 
   testing: {
     client: 'pg',
-    connection: {
-      filename: 'postgres://localhost/vineyards-test'
-    },
+    connection: 'postgres://localhost/vineyardstest',
     migrations: {
       directory: './db/migrations'
     },
