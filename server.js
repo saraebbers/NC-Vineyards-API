@@ -64,6 +64,11 @@ app.delete('/api/v1/wines/:id', (request, response) => {
 
 });
 
+process.on('uncaughtException', function (err) {
+    console.log(err);
+}); 
+
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`);
 });
