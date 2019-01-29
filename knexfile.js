@@ -23,8 +23,21 @@ module.exports = {
       directory: './db/migrations'
     },
     useNullAsDefault: true
-  }
+  },
 
+  testing: {
+    client: 'pg',
+    connection: {
+      filename: 'postgres://localhost/vineyards-test'
+    },
+    migrations: {
+      directory: './db/migrations'
+    },
+    seeds: {
+      directory: './db/seeds/test'
+    },
+    useNullAsDefault: true
+  }
 
 
 };
