@@ -1,4 +1,4 @@
-const vineyardsData = require('../../../data');
+const vineyardsData = require('../../../seed');
 
 const createVineyard = (knex, vineyard) => {
   return knex('vineyards').insert({

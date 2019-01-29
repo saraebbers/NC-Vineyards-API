@@ -19,7 +19,13 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/v1/vineyards', (request, response) => {
-
+  database('vineyards').select()
+    .then(vineyards => {
+      response.status(200).json(vineyards);
+    })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.get('/api/v1/vineyards/:id', (request, response) => {
@@ -43,7 +49,13 @@ app.delete('/api/v1/vineyards', (request, response) => {
 // });
 
 app.get('/api/v1/wines', (request, response) => {
-
+  database('wines').select()
+  .then(wines => {
+    response.status(200).json(wines);
+  })
+  .catch(error => {
+    response.status(500).json(`Error retrieving data: ${error}`)
+  })
 });
 
 app.get('/api/v1/wines/:id', (request, response) => {
