@@ -11,7 +11,7 @@ app.use( bodyParser.json() );
 
 app.set('port', process.env.port || 3000);
 
-// app.locals.title = 'NC Vineyards';
+app.locals.title = 'NC Vineyards';
 
 
 app.get('/', (request, response) => {
