@@ -1,11 +1,24 @@
+process.env.NODE_ENV = 'testing';
+const configuration = require('../knexfile.js')['testing'];
+const database = require('knex')(configuration)
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const server = require('../server');
-
 chai.use(chaiHttp);
 
+before(done => {
+  database.migrate.latest()
+    .then(() => done())
+})
+
 describe('Client Routes', () => {
+  beforeEach(done => {
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done())
+  })
   it('should return the homepage with text', done => {
     chai.request(server)
     .get('/')
@@ -29,6 +42,12 @@ describe('Client Routes', () => {
 });
 
 describe('API Routes for vineyards', () => {
+  beforeEach(done => {
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done())
+  })
   describe('GET /api/v1/vineyards', () => {
     it('should return all vineyards', (done) => {
       chai.request(server)
@@ -56,12 +75,12 @@ describe('API Routes for vineyards', () => {
 
     it('should return a specific vineyard by id', (done) => {
       chai.request(server)
-      .get('/api/v1/vineyards/10')
+      .get(`/api/v1/vineyards/1`)
       .end((err, response) => {
         response.should.have.status(200);
         response.should.be.json;
         response.should.be.a('object');
-        response.body.id.should.equal(10);
+        response.body.id.should.equal(1);
         response.body.should.have.property('name');
         response.body.should.have.property('region');
         response.body.should.have.property('website');
@@ -95,6 +114,12 @@ describe('API Routes for vineyards', () => {
 });
 
 describe('API Routes for Wines', () => {
+  beforeEach(done => {
+    database.migrate.rollback()
+      .then(() => database.migrate.latest())
+      .then(() => database.seed.run())
+      .then(() => done())
+  })
   describe('GET /api/v1/wines', () => {
     it('should return all wines', (done) => {
       chai.request(server)
@@ -119,13 +144,13 @@ describe('API Routes for Wines', () => {
 
     it('should return a specific wine by id', (done) => {
       chai.request(server)
-      .get('/api/v1/wines/26')
+      .get('/api/v1/wines/1')
       .end((err, response) => {
         response.should.have.status(200);
         response.should.be.json;
         response.should.be.a('object');
-        response.body.id.should.equal(26);
-        response.body.vineyard_id.should.equal(9)
+        response.body.id.should.equal(1);
+        response.body.vineyard_id.should.equal(1)
         response.body.should.have.property('name');
         response.body.should.have.property('type');
         response.body.should.have.property('vineyard_id');
@@ -149,6 +174,20 @@ describe('API Routes for Wines', () => {
         response.body.should.have.property('message');
         response.body.message.should.equal('This id does not match an Id currently in the database, please resubmit request with correct id');
         done()
+      })
+    })
+
+    describe('DELETE /api/v1/wines/:id', () => {
+      it('should return a status of 200 if wine was successfully deleted', (done) => {
+        chai.request(server)
+        .delete('/api/v1/wines/1')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.should.be.a('object')
+          response.body.should.equal('Successfully deleted wine with the id of 1')
+          done()
+        })
       })
     })
   })

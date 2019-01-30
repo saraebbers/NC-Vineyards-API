@@ -143,10 +143,25 @@ app.put('/api/v1/wines', (request, response) => {
 });
 
 app.delete('/api/v1/wines/:id', (request, response) => {
-  //remove a vineyard by id
-  //return (204) for successful delete-- return id
-  // return (422-- bad format???) if cant successfully delete ?do we need to add permissions for deletion,\
-  //catch 500
+  let id = parseInt(request.params.id);
+  database('wines').select()
+    .then(wines => {
+      const existingWine = wines.find(wine => {
+        return id === wine.id
+      })
+
+      if (existingWine) {
+        database('wines').where('id', id).delete()
+        .then(wine => {
+          response.status(200).json(`Successfully deleted wine with the id of ${id}`)
+        })
+      } else {
+        response.status(404).json(`Error on deletion: cannot find resource specified (wine id: ${id}). Check the id specified.`)
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
 });
 
 
