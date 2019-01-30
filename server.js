@@ -19,13 +19,42 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/v1/vineyards', (request, response) => {
-  database('vineyards').select()
-    .then(vineyards => {
-      response.status(200).json(vineyards);
-    })
-    .catch(error => {
-      response.status(500).json(`Error retrieving data: ${error}`)
-    })
+  let queryString = request.query
+
+  if(Object.keys(queryString).length) {
+    let region;
+    let vineyardName;
+    if(queryString.region) {
+      region = queryString.region.toLowerCase()
+    }
+    if(queryString.name) {
+      vineyardName = queryString.name.toLowerCase()
+      console.log(vineyardName)
+    }
+    database('vineyards').select()
+      .then(vineyards => {
+        let matchingVineyards = vineyards.filter(vineyard => {
+          if (vineyard.region.toLowerCase() === region) {
+            return vineyard
+          } else if (vineyard.name.toLowerCase() === vineyardName) {
+            return vineyard
+          }
+        })
+        if (matchingVineyards.length) {
+          response.status(200).json(matchingVineyards)
+        } else {
+          response.status(404).json({message: 'Could not find any resources matching your query, please check your query string and try again.'})
+        }
+      })
+  } else {
+    database('vineyards').select()
+      .then(vineyards => {
+        response.status(200).json(vineyards);
+      })
+      .catch(error => {
+        response.status(500).json(`Error retrieving data: ${error}`)
+      })
+  }
 });
 
 app.get('/api/v1/vineyards/:id', (request, response) => {
@@ -56,13 +85,15 @@ app.delete('/api/v1/vineyards/:id', (request, response) => {
   //also make sure to run the delete all wines code first
 });
 
-app.get('/api/v1/vineyards', (request, response) => {
-  // will be used for query
-  //?= query for searching each region, name, 
-  //return 200
-  //return 404
-  //return 500
-});
+// app.get('/api/v1/vineyards', (request, response) => {
+//   console.log(request.query)
+//   response.status(200).json(request.query)
+//   // will be used for query
+//   //?= query for searching each region, name, 
+//   //return 200
+//   //return 404
+//   //return 500
+// });
 
 app.get('/api/v1/wines', (request, response) => {
   database('wines').select()
