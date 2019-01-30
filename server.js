@@ -99,16 +99,6 @@ app.delete('/api/v1/vineyards/:id', (request, response) => {
   //also make sure to run the delete all wines code first
 });
 
-// app.get('/api/v1/vineyards', (request, response) => {
-//   console.log(request.query)
-//   response.status(200).json(request.query)
-//   // will be used for query
-//   //?= query for searching each region, name, 
-//   //return 200
-//   //return 404
-//   //return 500
-// });
-
 app.get('/api/v1/wines', (request, response) => {
   database('wines').select()
   .then(wines => {
