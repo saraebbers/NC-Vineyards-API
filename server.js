@@ -29,9 +29,21 @@ app.get('/api/v1/vineyards', (request, response) => {
 });
 
 app.get('/api/v1/vineyards/:id', (request, response) => {
-  //return an individual vineyard
-  //return 404 sad
-  //catch error
+  const { id } = request.params
+  database('vineyards').select()
+  .then(vineyards => {
+    let foundVineyard= vineyards.find(vineyard => {
+      return vineyard.id === parseInt(id)
+    })
+    if(foundVineyard) {
+      response.status(200).json(foundVineyard);
+    } else {
+      response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
+    }
+  })
+  .catch(error => {
+    response.status(500).json(`Error retrieving data: ${error}`)
+  })
 });
 
 app.post('/api/v1/vineyards', (request, response) => {

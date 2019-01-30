@@ -53,6 +53,43 @@ describe('API Routes for vineyards', () => {
         done()
       })
     })
+
+    it('should return a specific vineyard by id', (done) => {
+      chai.request(server)
+      .get('/api/v1/vineyards/10')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.id.should.equal(10);
+        response.body.should.have.property('name');
+        response.body.should.have.property('region');
+        response.body.should.have.property('website');
+        response.body.should.have.property('address');
+        response.body.should.have.property('phone');
+        response.body.should.have.property('id');
+        response.body.name.should.be.a('string');
+        response.body.region.should.be.a('string');
+        response.body.website.should.be.a('string');
+        response.body.address.should.be.a('string');
+        response.body.phone.should.be.a('string');
+        response.body.id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return a 404 error if passed an id that does not exist', (done) => {
+      chai.request(server)
+      .get('/api/v1/vineyards/1001')
+      .end((err, response) => {
+        response.should.have.status(404);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('This id does not match an Id currently in the database, please resubmit request with correct id');
+        done()
+      })
+    })
   })
 });
 
