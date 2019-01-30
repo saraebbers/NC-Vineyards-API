@@ -15,7 +15,7 @@ app.locals.title = 'NC Vineyards';
 
 
 app.get('/', (request, response) => {
-  response.status(200).json('NC Vineyards')
+  response.status(200).send('NC Vineyards')
 })
 
 app.get('/api/v1/vineyards', (request, response) => {
@@ -29,24 +29,40 @@ app.get('/api/v1/vineyards', (request, response) => {
 });
 
 app.get('/api/v1/vineyards/:id', (request, response) => {
-
+  //return an individual vineyard
+  //return 404 sad
+  //catch error
 });
 
 app.post('/api/v1/vineyards', (request, response) => {
-
+  // add a vineyard assuming correct entry in body
+  //return 201 successful creation, return id
+  //return 422 cant make new entry with error message
+  // catch 500
 });
 
-app.patch('/api/v1/vineyards', (request, response) => {
-
+app.put('/api/v1/vineyards', (request, response) => {
+  // fix information assuming correct entry-- Block efforts to change the id
+  //return (201) for successful update return id
+  // return (?ERROR) if cant successfully update, 
+  //catch 500
 });
 
-app.delete('/api/v1/vineyards', (request, response) => {
-
+app.delete('/api/v1/vineyards/:id', (request, response) => {
+  //remove a vineyard by id
+  //return (204) for successful delete-- return id
+  // return (?ERROR) if cant successfully delete ?do we need to add permissions for deletion,\
+  //catch 500
+  //also make sure to run the delete all wines code first
 });
 
-// app.get('/api/v1/vineyards', (request, response) => {
-  //will be used for query
-// });
+app.get('/api/v1/vineyards', (request, response) => {
+  // will be used for query
+  //?= query for searching each region, name, 
+  //return 200
+  //return 404
+  //return 500
+});
 
 app.get('/api/v1/wines', (request, response) => {
   database('wines').select()
@@ -56,22 +72,34 @@ app.get('/api/v1/wines', (request, response) => {
   .catch(error => {
     response.status(500).json(`Error retrieving data: ${error}`)
   })
+  // add this to a test, eventhough we have it written
 });
 
 app.get('/api/v1/wines/:id', (request, response) => {
-
+  //return an individual wine
+  //return 404 sad
+  //catch error
 });
 
 app.post('/api/v1/wines', (request, response) => {
-
+  // add a vineyard assuming correct entry in body
+  //return 201 successful creation, return id
+  //return 422 cant make new entry with error message
+  // catch 500
 });
 
-app.patch('/api/v1/wines', (request, response) => {
-
+app.put('/api/v1/wines', (request, response) => {
+  // fix information assuming correct entry-- Block efforts to change the id
+  //return (201) for successful update return id
+  // return (422) if cant successfully update, 
+  //catch 500
 });
 
 app.delete('/api/v1/wines/:id', (request, response) => {
-
+  //remove a vineyard by id
+  //return (204) for successful delete-- return id
+  // return (422-- bad format???) if cant successfully delete ?do we need to add permissions for deletion,\
+  //catch 500
 });
 
 
@@ -79,3 +107,5 @@ app.delete('/api/v1/wines/:id', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}`);
 });
+
+module.exports = app;
