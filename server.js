@@ -123,6 +123,9 @@ app.get('/api/v1/wines/:id', (request, response) => {
       response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
     }
   })
+  .catch(error => {
+    response.status(500).json(`Error retrieving data: ${error}`)
+  })
 });
 
 app.post('/api/v1/wines', (request, response) => {
