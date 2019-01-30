@@ -32,7 +32,7 @@ app.get('/api/v1/vineyards/:id', (request, response) => {
   const { id } = request.params
   database('vineyards').select()
   .then(vineyards => {
-    let foundVineyard= vineyards.find(vineyard => {
+    let foundVineyard = vineyards.find(vineyard => {
       return vineyard.id === parseInt(id)
     })
     if(foundVineyard) {
@@ -88,9 +88,18 @@ app.get('/api/v1/wines', (request, response) => {
 });
 
 app.get('/api/v1/wines/:id', (request, response) => {
-  //return an individual wine
-  //return 404 sad
-  //catch error
+  const { id } = request.params
+  database('wines').select()
+  .then(wines => {
+    let foundWine = wines.find(wine => {
+      return wine.id === parseInt(id)
+    })
+    if(foundWine) {
+      response.status(200).json(foundWine);
+    } else {
+      response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
+    }
+  })
 });
 
 app.post('/api/v1/wines', (request, response) => {

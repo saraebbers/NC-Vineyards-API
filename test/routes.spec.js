@@ -115,6 +115,42 @@ describe('API Routes for Wines', () => {
         done()
       })
     })
+
+    it('should return a specific wine by id', (done) => {
+      chai.request(server)
+      .get('/api/v1/wines/26')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.id.should.equal(26);
+        response.body.vineyard_id.should.equal(9)
+        response.body.should.have.property('name');
+        response.body.should.have.property('type');
+        response.body.should.have.property('vineyard_id');
+        response.body.should.have.property('color');
+        response.body.should.have.property('id');
+        response.body.name.should.be.a('string');
+        response.body.type.should.be.a('string');
+        response.body.vineyard_id.should.be.a('number');
+        response.body.color.should.be.a('string');
+        done()
+      })
+    })
+
+    it('should return a 404 error if passed an id that does not exist', (done) => {
+      chai.request(server)
+      .get('/api/v1/wines/2002')
+      .end((err, response) => {
+        response.should.have.status(404);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('This id does not match an Id currently in the database, please resubmit request with correct id');
+        done()
+      })
+    })
+
   })
 });
 
