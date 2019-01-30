@@ -109,8 +109,50 @@ describe('API Routes for vineyards', () => {
         done()
       })
     })
-    
   })
+  describe('POST /api/v1/vineyards', () => {
+    it('should add a new vineyard if all of the required params are present', (done) => {
+      chai.request(server)
+      .post('/api/v1/vineyards')
+      .send({
+          name: 'Happy Camper Vineyard',
+          address: '123 Street Rd, NC',
+          website: 'www.WeAreSoHappy',
+          phone: '(555) 867-5309',
+          region: 'Piedmont'
+      })
+      .end((err, response) => {
+        response.should.have.status(201);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.id.should.equal(7);
+        response.body.should.have.property('id');
+        response.body.id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return a status code of 422 if one of the required params is not present', (done) => {
+      chai.request(server)
+      .post('/api/v1/vineyards')
+      .send({
+          name: 'Happy Camper Vineyard',
+          address: '123 Street Rd, NC',
+          website: 'www.WeAreSoHappy',
+          phone: '(555) 867-5309'
+      })
+      .end((err, response) => {
+        response.should.have.status(422);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "region" property.')
+        done()
+      })
+    })
+  })
+
+  
 });
 
 describe('API Routes for Wines', () => {

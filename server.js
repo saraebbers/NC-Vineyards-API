@@ -78,10 +78,20 @@ app.get('/api/v1/vineyards/:id', (request, response) => {
 });
 
 app.post('/api/v1/vineyards', (request, response) => {
-  // add a vineyard assuming correct entry in body
-  //return 201 successful creation, return id
-  //return 422 cant make new entry with error message
-  // catch 500
+  const vineyard = request.body;
+
+  for(let requiredParameter of ['name', 'address', 'website', 'phone', 'region']) {
+    if(!vineyard[requiredParameter]) {
+      return response.status(422).json({message: `Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "${requiredParameter}" property.`})
+    }
+  }
+  database('vineyards').insert(vineyard, 'id')
+  .then(vineyard => {
+    response.status(201).json({ id: vineyard[0] })
+  })
+  .catch(error => {
+    response.status(500).json(`Error retrieving data: ${error}`)
+  })
 });
 
 app.put('/api/v1/vineyards', (request, response) => {
