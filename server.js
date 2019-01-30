@@ -29,7 +29,6 @@ app.get('/api/v1/vineyards', (request, response) => {
     }
     if(queryString.name) {
       vineyardName = queryString.name.toLowerCase()
-      console.log(vineyardName)
     }
     database('vineyards').select()
       .then(vineyards => {
@@ -45,6 +44,9 @@ app.get('/api/v1/vineyards', (request, response) => {
         } else {
           response.status(404).json({message: 'Could not find any resources matching your query, please check your query string and try again.'})
         }
+      })
+      .catch(error => {
+        response.status(500).json(`Error retrieving data: ${error}`)
       })
   } else {
     database('vineyards').select()
