@@ -36,6 +36,10 @@
 GET /api/v1/vineyards // get all vineyards
 --> returns an array of vineyard objects
 
+GET /api/v1/vineyards${queryString}
+queryString: ?region=[Mountains OR Coast OR Piedmont] --> returns all vineyards associated with given region.
+queryString: ?name=[Enter given name with '%20' between each word] --> returns an array of one vineyard object with a matching name.
+
 GET /api/v1/vineyards/:id // get a specific vineyard
 --> returns a specific vineyard object
 
