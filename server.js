@@ -15,7 +15,7 @@ app.locals.title = 'NC Vineyards';
 
 
 app.get('/', (request, response) => {
-  response.status(200).send('NC Vineyards')
+  response.status(200).json({message: 'NC Vineyards'})
 })
 
 app.get('/api/v1/vineyards', (request, response) => {

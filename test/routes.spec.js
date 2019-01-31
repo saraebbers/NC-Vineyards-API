@@ -24,8 +24,10 @@ describe('Client Routes', () => {
     .get('/')
     .end((err, response) => {
       response.should.have.status(200);
-      response.should.be.html;
-      response.res.text.should.equal('NC Vineyards');
+      response.should.be.json;
+      response.should.be.a('object');
+      response.body.should.have.property('message')
+      response.body.message.should.equal('NC Vineyards');
       done();
     })
   })
