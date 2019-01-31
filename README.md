@@ -42,7 +42,7 @@ GET /api/v1/vineyards/:id // get a specific vineyard
 POST /api/v1/vineyards  // create a new vineyard
 --> required parameters: 'name'(string), 'address'(string), 'phone'(string in format '(XXX) XXX-XXXX'), 'region'(string), and 'region'(string of either 'Coast', 'Mountains', or 'Piedmont')
 
-PUT /api/v1/vineyards/:id  // edit a given vineyard with the required parameters of the vineyards POST endpoint
+PUT /api/v1/vineyards/:id  // edit a given vineyard with corrected information for any one(or multiple) parameter(s) required in the POST vineyards endpoint directly above excluding the id (primary key).
 
 DELETE /api/v1/vineyards/:id  // delete a specific vineyard and all wines associated with specified vineyard
 ```
@@ -57,7 +57,7 @@ GET /api/v1/wines/:id // get a specific wine
 POST /api/v1/wines // create a new wine
 --> required parameters: 'name'(string), 'color'(string), 'type'(string), 'vineyard_id'(number, this is to be associated with the primary key id of the associated vineyard)
 
-PUT /api/v1/wines/:vineyard_id  // edit a given wine with the required parameters of the wines POST endpoint
+PUT /api/v1/wines/:vineyard_id  // edit a given wine with corrected information for any one(or multiple) parameter(s) required in the POST wines endpoint directly above excluding the id (primary key).
 
 DELETE /api/v1/wines/:id  // delete a specific wine
 
