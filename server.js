@@ -96,12 +96,12 @@ app.post('/api/v1/vineyards', (request, response) => {
 
 app.put('/api/v1/vineyards/:id', (request, response) => {
   const updatedVineyard = request.body;
-  const { id } = request.params
+  let id  = parseInt(request.params.id)
 
 database('vineyards').select()
   .then(vineyards => {
     let foundVineyard = vineyards.find(vineyard => {
-      return vineyard.id === parseInt(id)
+      return vineyard.id === id
     })
     if(foundVineyard) {
       database('vineyards').where('id', id).update(updatedVineyard)
@@ -188,12 +188,12 @@ app.post('/api/v1/wines', (request, response) => {
 
 app.put('/api/v1/wines/:id', (request, response) => {
   const updatedWine = request.body;
-  const { id } = request.params
+  let id  = parseInt(request.params.id)
 
 database('wines').select()
   .then(wines => {
     let foundWine = wines.find(wine => {
-      return wine.id === parseInt(id)
+      return wine.id === id
     })
     if(foundWine) {
       database('wines').where('id', id).update(updatedWine)

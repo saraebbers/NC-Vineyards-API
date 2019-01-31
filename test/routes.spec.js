@@ -73,70 +73,6 @@ describe('API Routes for vineyards', () => {
       })
     })
 
-    it('should return a specific region if annotated in the query string', (done) => {
-      chai.request(server)
-      .get('/api/v1/vineyards?region=mountains')
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.should.be.json;
-        response.body.should.be.a('array');
-        response.body.length.should.equal(2);
-        response.body[0].should.have.property('name');
-        response.body[0].should.have.property('region');
-        response.body[0].should.have.property('website');
-        response.body[0].should.have.property('address');
-        response.body[0].should.have.property('phone');
-        response.body[0].should.have.property('id');
-        response.body[0].name.should.be.a('string');
-        response.body[0].region.should.be.a('string');
-        response.body[0].region.should.equal('Mountains');
-        response.body[0].website.should.be.a('string');
-        response.body[0].address.should.be.a('string');
-        response.body[0].phone.should.be.a('string');
-        response.body[0].id.should.be.a('number');
-        done()
-      })
-    })
-
-    it('should return a specific vineyard by name if annotated in the query string', (done) => {
-      chai.request(server)
-      .get('/api/v1/vineyards?name=a%20secret%20garden%20winery')
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.should.be.json;
-        response.should.be.a('object');
-        response.body.should.be.a('array');
-        response.body.length.should.equal(1);
-        response.body[0].should.have.property('name');
-        response.body[0].should.have.property('region');
-        response.body[0].should.have.property('website');
-        response.body[0].should.have.property('address');
-        response.body[0].should.have.property('phone');
-        response.body[0].should.have.property('id');
-        response.body[0].name.should.be.a('string');
-        response.body[0].name.should.equal('A Secret Garden Winery');
-        response.body[0].region.should.be.a('string');
-        response.body[0].website.should.be.a('string');
-        response.body[0].address.should.be.a('string');
-        response.body[0].phone.should.be.a('string');
-        response.body[0].id.should.be.a('number');
-        done()
-      })
-    })
-
-    it('should return an error message if a search query is annotated but not found', (done) => {
-      chai.request(server)
-      .get('/api/v1/vineyards?region=desert')
-      .end((err, response) => {
-        response.should.have.status(404);
-        response.should.be.json;
-        response.should.be.a('object');
-        response.body.should.have.property('message');
-        response.body.message.should.equal(`Could not find any resources matching your query (searchable terms are 'region' and 'name').`)
-        done()
-      })
-    })
-
     it('should return a specific vineyard by id', (done) => {
       chai.request(server)
       .get(`/api/v1/vineyards/1`)
@@ -174,7 +110,6 @@ describe('API Routes for vineyards', () => {
       })
     })
   })
-
   describe('POST /api/v1/vineyards', () => {
     it('should add a new vineyard if all of the required params are present', (done) => {
       chai.request(server)
@@ -193,16 +128,6 @@ describe('API Routes for vineyards', () => {
         response.body.id.should.equal(7);
         response.body.should.have.property('id');
         response.body.id.should.be.a('number');
-
-  describe('DELETE /api/v1/vineyards', () => {
-    it('should return a status of 200 if vineyard was successfully deleted', (done) => {
-      chai.request(server)
-      .delete('/api/v1/vineyards/1')
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.should.be.json;
-        response.should.be.a('object')
-        response.body.should.equal('Successfully deleted vineyard with the id of 1 as well as wines with the vineyard_id of 1')
         done()
       })
     })
@@ -222,19 +147,49 @@ describe('API Routes for vineyards', () => {
         response.body.should.be.a('object');
         response.body.should.have.property('message');
         response.body.message.should.equal('Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "region" property.');
-    
-    it('should return a status of 404 if vineyard for deletion is not found', (done) => {
-      chai.request(server)
-      .delete('/api/v1/vineyards/8675309')
-      .end((err, response) => {
-        response.should.have.status(404);
-        response.should.be.json;
-        response.should.be.a('object')
-        response.body.should.equal('Error on deletion: cannot find resource specified (vineyard id: 8675309). Check the id specified.')
         done()
       })
     })
   })
+
+  describe('PUT /api/v1/vineyards', () => {
+    it('should update the values associated with a given vineyard without altering the id or deleting information that is not meant to be altered', (done) => {
+      chai.request(server)
+      .put('/api/v1/vineyards/1')
+      .send({ 
+        name: 'Harrison Laughs Vineyard',
+        phone: '(555) 555-5432',
+      })
+      .end((err, response) => {
+        response.should.have.status(201);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.id.should.equal(1);
+        response.body.should.have.property('id');
+        response.body.id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return a 422 error if passed an id that does not exist', (done) => {
+      chai.request(server)
+      .put('/api/v1/vineyards/3984')
+      .send({ 
+        name: 'Harrison Laughs Vineyard',
+        phone: '(555) 555-5432',
+      })
+      .end((err, response) => {
+        response.should.have.status(422);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('This id does not match an Id currently in the database, unable to update');
+        done()
+      })
+    })
+
+  })
+
 });
 
 describe('API Routes for Wines', () => {
@@ -299,29 +254,18 @@ describe('API Routes for Wines', () => {
         done()
       })
     })
-  })
-  describe('DELETE /api/v1/wines', () => {
-    it('should return a status of 200 if wine was successfully deleted', (done) => {
-      chai.request(server)
-      .delete('/api/v1/wines/1')
-      .end((err, response) => {
-        response.should.have.status(200);
-        response.should.be.json;
-        response.should.be.a('object')
-        response.body.should.equal('Successfully deleted wine with the id of 1')
-        done()
-      })
-    })
 
-    it('should return a status of 404 if wine for deletion is not found', (done) => {
-      chai.request(server)
-      .delete('/api/v1/wines/8675309')
-      .end((err, response) => {
-        response.should.have.status(404);
-        response.should.be.json;
-        response.should.be.a('object')
-        response.body.should.equal('Error on deletion: cannot find resource specified (wine id: 8675309). Check the id specified.')
-        done()
+    describe('DELETE /api/v1/wines/:id', () => {
+      it('should return a status of 200 if wine was successfully deleted', (done) => {
+        chai.request(server)
+        .delete('/api/v1/wines/1')
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.should.be.a('object')
+          response.body.should.equal('Successfully deleted wine with the id of 1')
+          done()
+        })
       })
     })
   })
@@ -364,6 +308,46 @@ describe('API Routes for Wines', () => {
         done()
       })
     })
+  })
+
+  describe('PUT /api/v1/wines', () => {
+    it('should update the values associated with a given wine without altering the id or deleting information that is not meant to be altered', (done) => {
+      chai.request(server)
+      .put('/api/v1/wines/1')
+      .send({ 
+        name: 'Carolina Red Strawberry Special',
+        type: 'So Sweet you can only have 1',
+        color: 'Pink'
+      })
+      .end((err, response) => {
+        response.should.have.status(201);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.id.should.equal(1);
+        response.body.should.have.property('id');
+        response.body.id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return a 422 error if passed an id that does not exist', (done) => {
+      chai.request(server)
+      .put('/api/v1/wines/3984')
+      .send({ 
+        name: 'Carolina Red Strawberry Special',
+        type: 'So Sweet you can only have 1',
+        color: 'Pink'
+      })
+      .end((err, response) => {
+        response.should.have.status(422);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('This id does not match an Id currently in the database, unable to update');
+        done()
+      })
+    })
+
   })
 
 });
