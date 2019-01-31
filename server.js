@@ -42,7 +42,7 @@ app.get('/api/v1/vineyards', (request, response) => {
         if (matchingVineyards.length) {
           response.status(200).json(matchingVineyards)
         } else {
-          response.status(404).json({message: 'Could not find any resources matching your query, please check your query string and try again.'})
+          response.status(404).json({message: `Could not find any resources matching your query (searchable terms are 'region' and 'name').`})
         }
       })
       .catch(error => {
