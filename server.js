@@ -21,13 +21,13 @@ app.get('/', (request, response) => {
 app.get('/api/v1/vineyards', (request, response) => {
   let queryString = request.query
 
-  if(Object.keys(queryString).length) {
+  if (Object.keys(queryString).length) {
     let region;
     let vineyardName;
-    if(queryString.region) {
+    if (queryString.region) {
       region = queryString.region.toLowerCase()
     }
-    if(queryString.name) {
+    if (queryString.name) {
       vineyardName = queryString.name.toLowerCase()
     }
     database('vineyards').select()
@@ -62,59 +62,59 @@ app.get('/api/v1/vineyards', (request, response) => {
 app.get('/api/v1/vineyards/:id', (request, response) => {
   const { id } = request.params
   database('vineyards').select()
-  .then(vineyards => {
-    let foundVineyard = vineyards.find(vineyard => {
-      return vineyard.id === parseInt(id)
+    .then(vineyards => {
+      let foundVineyard = vineyards.find(vineyard => {
+        return vineyard.id === parseInt(id)
+      })
+      if (foundVineyard) {
+        response.status(200).json(foundVineyard);
+      } else {
+        response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
+      }
     })
-    if(foundVineyard) {
-      response.status(200).json(foundVineyard);
-    } else {
-      response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
-    }
-  })
-  .catch(error => {
-    response.status(500).json(`Error retrieving data: ${error}`)
-  })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.post('/api/v1/vineyards', (request, response) => {
   const vineyard = request.body;
 
-  for(let requiredParameter of ['name', 'address', 'website', 'phone', 'region']) {
-    if(!vineyard[requiredParameter]) {
+  for (let requiredParameter of ['name', 'address', 'website', 'phone', 'region']) {
+    if (!vineyard[requiredParameter]) {
       return response.status(422).json({message: `Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "${requiredParameter}" property.`})
     }
   }
   database('vineyards').insert(vineyard, 'id')
-  .then(vineyard => {
-    response.status(201).json({ id: vineyard[0] })
-  })
-  .catch(error => {
-    response.status(500).json(`Error retrieving data: ${error}`)
-  })
+    .then(vineyard => {
+      response.status(201).json({ id: vineyard[0] })
+    })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.put('/api/v1/vineyards/:id', (request, response) => {
   const updatedVineyard = request.body;
   let id  = parseInt(request.params.id)
 
-database('vineyards').select()
-  .then(vineyards => {
-    let foundVineyard = vineyards.find(vineyard => {
-      return vineyard.id === id
-    })
-    if(foundVineyard) {
-      database('vineyards').where('id', id).update(updatedVineyard)
-      .then(vineyard => {
-        response.status(201).json({id: id})
+  database('vineyards').select()
+    .then(vineyards => {
+      let foundVineyard = vineyards.find(vineyard => {
+        return vineyard.id === id
       })
-    } else {
-      response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
-    }
-  })
-  .catch(error => {
-    response.status(500).json(`Error updating data: ${error}`)
-  })
+      if (foundVineyard) {
+        database('vineyards').where('id', id).update(updatedVineyard)
+          .then(vineyard => {
+           response.status(201).json({id: id})
+        })
+      } else {
+        response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
+      }
+    })
+    .catch(error => {
+      response.status(500).json(`Error updating data: ${error}`)
+    })
 });
 
 app.delete('/api/v1/vineyards/:id', (request, response) => {
@@ -124,7 +124,7 @@ app.delete('/api/v1/vineyards/:id', (request, response) => {
       const existingVineyard = vineyards.find(vineyard => {
         return id === vineyard.id
       })
-      if(existingVineyard) {
+      if (existingVineyard) {
         database('wines').where('vineyard_id', id).delete()
           .then(() => {
             database('vineyards').where('id', id).delete()
