@@ -190,6 +190,33 @@ describe('API Routes for vineyards', () => {
 
   })
 
+  describe('DELETE /api/v1/vineyards', () => {
+    it('should return a status of 200 if vineyard was successfully deleted', (done) => {
+      chai.request(server)
+      .delete('/api/v1/vineyards/1')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.should.be.a('object')
+        response.body.should.equal('Successfully deleted vineyard with the id of 1 as well as wines with the vineyard_id of 1')
+        done()
+      })
+    })
+
+    it('should return a status of 404 if vineyard for deletion is not found', (done) => {
+      chai.request(server)
+      .delete('/api/v1/vineyards/8675309')
+      .end((err, response) => {
+        response.should.have.status(404);
+        response.should.be.json;
+        response.should.be.a('object')
+        response.body.should.equal('Error on deletion: cannot find resource specified (vineyard id: 8675309). Check the id specified.')
+        done()
+      })
+    })
+  })
+
+
 });
 
 describe('API Routes for Wines', () => {
@@ -348,6 +375,32 @@ describe('API Routes for Wines', () => {
       })
     })
 
+  })
+
+   describe('DELETE /api/v1/wines', () => {
+    it('should return a status of 200 if wine was successfully deleted', (done) => {
+      chai.request(server)
+      .delete('/api/v1/wines/1')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.should.be.a('object')
+        response.body.should.equal('Successfully deleted wine with the id of 1')
+        done()
+      })
+    })
+
+    it('should return a status of 404 if wine for deletion is not found', (done) => {
+      chai.request(server)
+      .delete('/api/v1/wines/8675309')
+      .end((err, response) => {
+        response.should.have.status(404);
+        response.should.be.json;
+        response.should.be.a('object')
+        response.body.should.equal('Error on deletion: cannot find resource specified (wine id: 8675309). Check the id specified.')
+        done()
+      })
+    })
   })
 
 });
