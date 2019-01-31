@@ -5,7 +5,8 @@
   "main": "data.js",
   "scripts": {
     "test": "NODE_ENV=testing node_modules/mocha/bin/mocha --exit",
-    "start": "node server.js"
+    "start": "node server.js",
+    "eslint": "./node_modules/eslint/bin/eslint server.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.0",
+    "eslint-plugin-react": "^7.12.4",
     "mocha": "^5.2.0"
   }
 }
