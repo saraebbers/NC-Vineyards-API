@@ -95,10 +95,26 @@ app.post('/api/v1/vineyards', (request, response) => {
 });
 
 app.put('/api/v1/vineyards/:id', (request, response) => {
-  // fix information assuming correct entry-- Block efforts to change the id
-  //return (201) for successful update return id
-  // return (?ERROR) if cant successfully update, 
-  //catch 500
+  const updatedVineyard = request.body;
+  let id  = parseInt(request.params.id)
+
+database('vineyards').select()
+  .then(vineyards => {
+    let foundVineyard = vineyards.find(vineyard => {
+      return vineyard.id === id
+    })
+    if(foundVineyard) {
+      database('vineyards').where('id', id).update(updatedVineyard)
+      .then(vineyard => {
+        response.status(201).json({id: id})
+      })
+    } else {
+      response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
+    }
+  })
+  .catch(error => {
+    response.status(500).json(`Error updating data: ${error}`)
+  })
 });
 
 app.delete('/api/v1/vineyards/:id', (request, response) => {
@@ -171,10 +187,26 @@ app.post('/api/v1/wines', (request, response) => {
 });
 
 app.put('/api/v1/wines/:id', (request, response) => {
-  // fix information assuming correct entry-- Block efforts to change the id
-  //return (201) for successful update return id
-  // return (422) if cant successfully update, 
-  //catch 500
+  const updatedWine = request.body;
+  let id  = parseInt(request.params.id)
+
+database('wines').select()
+  .then(wines => {
+    let foundWine = wines.find(wine => {
+      return wine.id === id
+    })
+    if(foundWine) {
+      database('wines').where('id', id).update(updatedWine)
+      .then(wine => {
+        response.status(201).json({id: id})
+      })
+    } else {
+      response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
+    }
+  })
+  .catch(error => {
+    response.status(500).json(`Error updating data: ${error}`)
+  })
 });
 
 app.delete('/api/v1/wines/:id', (request, response) => {
