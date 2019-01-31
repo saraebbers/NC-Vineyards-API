@@ -73,6 +73,70 @@ describe('API Routes for vineyards', () => {
       })
     })
 
+    it('should return a specific region if annotated in the query string', (done) => {
+      chai.request(server)
+      .get('/api/v1/vineyards?region=mountains')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.body.should.be.a('array');
+        response.body.length.should.equal(2);
+        response.body[0].should.have.property('name');
+        response.body[0].should.have.property('region');
+        response.body[0].should.have.property('website');
+        response.body[0].should.have.property('address');
+        response.body[0].should.have.property('phone');
+        response.body[0].should.have.property('id');
+        response.body[0].name.should.be.a('string');
+        response.body[0].region.should.be.a('string');
+        response.body[0].region.should.equal('Mountains');
+        response.body[0].website.should.be.a('string');
+        response.body[0].address.should.be.a('string');
+        response.body[0].phone.should.be.a('string');
+        response.body[0].id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return a specific vineyard by name if annotated in the query string', (done) => {
+      chai.request(server)
+      .get('/api/v1/vineyards?name=a%20secret%20garden%20winery')
+      .end((err, response) => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.should.be.a('array');
+        response.body.length.should.equal(1);
+        response.body[0].should.have.property('name');
+        response.body[0].should.have.property('region');
+        response.body[0].should.have.property('website');
+        response.body[0].should.have.property('address');
+        response.body[0].should.have.property('phone');
+        response.body[0].should.have.property('id');
+        response.body[0].name.should.be.a('string');
+        response.body[0].name.should.equal('A Secret Garden Winery');
+        response.body[0].region.should.be.a('string');
+        response.body[0].website.should.be.a('string');
+        response.body[0].address.should.be.a('string');
+        response.body[0].phone.should.be.a('string');
+        response.body[0].id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return an error message if a search query is annotated but not found', (done) => {
+      chai.request(server)
+      .get('/api/v1/vineyards?region=desert')
+      .end((err, response) => {
+        response.should.have.status(404);
+        response.should.be.json;
+        response.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('Could not find any resources matching your query, please check your query string and try again.')
+        done()
+      })
+    })
+
     it('should return a specific vineyard by id', (done) => {
       chai.request(server)
       .get(`/api/v1/vineyards/1`)
