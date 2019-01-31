@@ -105,9 +105,9 @@ app.put('/api/v1/vineyards/:id', (request, response) => {
       })
       if (foundVineyard) {
         database('vineyards').where('id', id).update(updatedVineyard)
-          .then(vineyard => {
-           response.status(201).json({id: id})
-        })
+          .then(() => {
+            response.status(201).json({id})
+          })
       } else {
         response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
       }
@@ -131,7 +131,7 @@ app.delete('/api/v1/vineyards/:id', (request, response) => {
               .then(() => {
                 response.status(200).json(`Successfully deleted vineyard with the id of ${id} as well as wines with the vineyard_id of ${id}`)
               })
-            })
+          })
       } else {
         response.status(404).json(`Error on deletion: cannot find resource specified (vineyard id: ${id}). Check the id specified.`)
       }
@@ -143,62 +143,62 @@ app.delete('/api/v1/vineyards/:id', (request, response) => {
 
 app.get('/api/v1/wines', (request, response) => {
   database('wines').select()
-  .then(wines => {
-    response.status(200).json(wines);
-  })
-  .catch(error => {
-    response.status(500).json(`Error retrieving data: ${error}`)
-  })
+    .then(wines => {
+      response.status(200).json(wines);
+    })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 
 app.get('/api/v1/wines/:id', (request, response) => {
   const { id } = request.params
   database('wines').select()
-  .then(wines => {
-    let foundWine = wines.find(wine => {
-      return wine.id === parseInt(id)
+    .then(wines => {
+      let foundWine = wines.find(wine => {
+        return wine.id === parseInt(id)
+      })
+      if (foundWine) {
+        response.status(200).json(foundWine);
+      } else {
+        response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
+      }
     })
-    if(foundWine) {
-      response.status(200).json(foundWine);
-    } else {
-      response.status(404).json({message: 'This id does not match an Id currently in the database, please resubmit request with correct id'})
-    }
-  })
-  .catch(error => {
-    response.status(500).json(`Error retrieving data: ${error}`)
-  })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.post('/api/v1/wines', (request, response) => {
   const wine = request.body;
 
-  for(let requiredParameter of ['name', 'type', 'vineyard_id', 'color' ]) {
-    if(!wine[requiredParameter]) {
+  for (let requiredParameter of ['name', 'type', 'vineyard_id', 'color' ]) {
+    if (!wine[requiredParameter]) {
       return response.status(422).json({message: `Expected Format: { name: <string>, type: <string>, color: <string> vineyard_id: <number>.  You are missing a "${requiredParameter}" property.`})
     }
   }
   database('wines').insert(wine, 'id')
-  .then(wine => {
-    response.status(201).json({ id: wine[0] })
-  })
-  .catch(error => {
-    response.status(500).json(`Error retrieving data: ${error}`)
-  })
+    .then(wine => {
+      response.status(201).json({ id: wine[0] })
+    })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.put('/api/v1/wines/:id', (request, response) => {
   const updatedWine = request.body;
   let id  = parseInt(request.params.id)
 
-database('wines').select()
-  .then(wines => {
-    let foundWine = wines.find(wine => {
-      return wine.id === id
-    })
-    if(foundWine) {
-      database('wines').where('id', id).update(updatedWine)
-      .then(wine => {
+  database('wines').select()
+    .then(wines => {
+      let foundWine = wines.find(wine => {
+        return wine.id === id
+      })
+      if (foundWine) {
+        database('wines').where('id', id).update(updatedWine)
+        .then(() => {
         response.status(201).json({id: id})
       })
     } else {
