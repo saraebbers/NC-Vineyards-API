@@ -87,7 +87,7 @@ module.exports = [
     website: 'www.duplinwinery.com',
     address: '505 N. Sycamore Street, Rose Hill, NC 28458',
     phoneNumber: '(910) 289-3888',
-  wines: [
+    wines: [
       {
         name: 'Hatteras Red',
         abv: '',

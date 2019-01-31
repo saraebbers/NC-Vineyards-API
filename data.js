@@ -302,26 +302,26 @@ module.exports = [
     website: 'www.duplinwinery.com',
     address: '505 N. Sycamore Street, Rose Hill, NC 28458',
     phoneNumber: '(910) 289-3888',
-   wines: [
-    {
-      name: 'Hatteras Red',
-      abv: '',
-      color: 'Red',
-      type: 'Sweet Muscadine',
-    },
-    {
-      name: 'Carolina Red',
-      abv: '',
-      color: 'Red',
-      type: 'Sweet',
-    },
-    {
-      name: 'Costal Shag',
-      abv: '',
-      color: 'Red',
-      type: 'Fruity',
-    }
-  ]
+    wines: [
+      {
+        name: 'Hatteras Red',
+        abv: '',
+        color: 'Red',
+        type: 'Sweet Muscadine',
+      },
+      {
+        name: 'Carolina Red',
+        abv: '',
+        color: 'Red',
+        type: 'Sweet',
+      },
+      {
+        name: 'Costal Shag',
+        abv: '',
+        color: 'Red',
+        type: 'Fruity',
+      }
+    ]
   },
   {
     name: 'Huffman Vineyards Winery & Mirey Creek Gifts',
