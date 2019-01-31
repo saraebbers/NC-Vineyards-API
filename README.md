@@ -62,7 +62,7 @@ DELETE /api/v1/wines/:id  // delete a specific wine
 
 ```
 
-# To Contribute to the Project:
+## To Contribute to the Project:
 
 - Follow the setup instructions above to get the app up and running locally on your machine.
 
