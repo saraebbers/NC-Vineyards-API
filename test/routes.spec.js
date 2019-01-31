@@ -193,6 +193,10 @@ describe('API Routes for vineyards', () => {
         response.body.id.should.equal(7);
         response.body.should.have.property('id');
         response.body.id.should.be.a('number');
+        done()
+      })
+    })
+  })
 
   describe('DELETE /api/v1/vineyards', () => {
     it('should return a status of 200 if vineyard was successfully deleted', (done) => {
@@ -222,6 +226,9 @@ describe('API Routes for vineyards', () => {
         response.body.should.be.a('object');
         response.body.should.have.property('message');
         response.body.message.should.equal('Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "region" property.');
+        done()
+      })
+    })
     
     it('should return a status of 404 if vineyard for deletion is not found', (done) => {
       chai.request(server)
@@ -235,7 +242,7 @@ describe('API Routes for vineyards', () => {
       })
     })
   })
-});
+})
 
 describe('API Routes for Wines', () => {
   beforeEach(done => {
@@ -366,5 +373,4 @@ describe('API Routes for Wines', () => {
     })
   })
 
-});
-
+})
