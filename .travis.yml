@@ -1,9 +1,15 @@
 language: node_js
 node_js:
-  - "node"
+- node
 services:
-  - postgresql
+- postgresql
 before_script:
-  - psql -c 'CREATE DATABASE vineyardstest;' -U postgres
+- psql -c 'CREATE DATABASE vineyardstest;' -U postgres
 notifications:
   email: false
+deploy:
+  provider: heroku
+  api_key:
+    secure: lWY1DUOr1OvOMHKl8fQDUgxUMt7sLxuD1YPQzwVuDvffOV7DBbJBjdIFvaq1hK1vvnDfIGAgw2RzL3MnUs0feO24jQWkmcaLGNs9RudWp0KmGbAK7BYB4up1DRJy2F+VesRsM3xJEt24AH7/rlvV2EdL+7uBJK3Mpv6Ccu2qchO6ZX9ydNedS5NxOIpLffHLl3qA7lpwO5kb53RQxs588ITLPycofiwX+4wQAxb+SyY41fLUjCPJIuL5xCnwdigPHmN7XkmZPrzs9CDByACtsPsMtmmjWYuLq7mH7BMoza7t1M1NmAyIWu2MJwRgLQswGy75nMDMGc4FNmOFhPaed8xvWeogYksPvDcj/Y7WP1N4IavLl1USAD4waZhpylqoYukuD37lu2NfKmDSoyJ2z/FdsgW11Gu0L2G4LJjUwKAJtUEe6HHo637xZC5JaMNJ2apTuYPLQgpU+2HV88z/04GJThm5C5FVvJ++Uth7WHkun3vT3S8lFXH6h0d/9Zoz1uciOxY4Bx3x2gKNH1Dbpj8lGe27BmDLmsamihEQRlg5n7GcD5dXq7Xu5Qeo0jvyHzqFto+7cAAPCfO1wb0DHR5awAGekzM1mDqA/Dink66WQP0zmgZyr8j1RA+cuM42YbyXaG9ieN3ZSrvCpiDHAsPLpwoj3Osp8wYACW568wM=
+  app: buildyourownbackendcodysara
+  skip_cleanup: true
