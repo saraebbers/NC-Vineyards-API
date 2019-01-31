@@ -49,6 +49,7 @@ describe('API Routes for vineyards', () => {
       .then(() => database.seed.run())
       .then(() => done())
   })
+  
   describe('GET /api/v1/vineyards', () => {
     it('should return all vineyards', (done) => {
       chai.request(server)
@@ -175,6 +176,7 @@ describe('API Routes for vineyards', () => {
         })
     })
   })
+
   describe('POST /api/v1/vineyards', () => {
     it('should add a new vineyard if all of the required params are present', (done) => {
       chai.request(server)
@@ -279,8 +281,6 @@ describe('API Routes for vineyards', () => {
         })
     })
   })
-
-
 });
 
 describe('API Routes for Wines', () => {
@@ -344,20 +344,6 @@ describe('API Routes for Wines', () => {
           response.body.message.should.equal('This id does not match an Id currently in the database, please resubmit request with correct id');
           done()
         })
-    })
-
-    describe('DELETE /api/v1/wines/:id', () => {
-      it('should return a status of 200 if wine was successfully deleted', (done) => {
-        chai.request(server)
-          .delete('/api/v1/wines/1')
-          .end((err, response) => {
-            response.should.have.status(200);
-            response.should.be.json;
-            response.should.be.a('object')
-            response.body.should.equal('Successfully deleted wine with the id of 1')
-            done()
-          })
-      })
     })
   })
 
@@ -438,7 +424,6 @@ describe('API Routes for Wines', () => {
           done()
         })
     })
-
   })
 
   describe('DELETE /api/v1/wines', () => {
@@ -466,6 +451,5 @@ describe('API Routes for Wines', () => {
         })
     })
   })
-
 });
 
