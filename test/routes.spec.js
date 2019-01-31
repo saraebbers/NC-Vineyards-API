@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'testing';
 const configuration = require('../knexfile.js')['testing'];
 const database = require('knex')(configuration)
 const chai = require('chai');
