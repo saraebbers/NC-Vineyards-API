@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 
 app.use( bodyParser.json() );
 
-app.set('port', process.env.port || 3000);
+app.set('port', process.env.PORT || 3000);
 
 app.locals.title = 'NC Vineyards';
 
