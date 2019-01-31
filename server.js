@@ -42,7 +42,7 @@ app.get('/api/v1/vineyards', (request, response) => {
         if (matchingVineyards.length) {
           response.status(200).json(matchingVineyards)
         } else {
-          response.status(404).json({message: 'Could not find any resources matching your query, please check your query string and try again.'})
+          response.status(404).json({message: `Could not find any resources matching your query (searchable terms are 'region' and 'name').`})
         }
       })
       .catch(error => {
@@ -102,11 +102,27 @@ app.put('/api/v1/vineyards/:id', (request, response) => {
 });
 
 app.delete('/api/v1/vineyards/:id', (request, response) => {
-  //remove a vineyard by id
-  //return (204) for successful delete-- return id
-  // return (?ERROR) if cant successfully delete ?do we need to add permissions for deletion,\
-  //catch 500
-  //also make sure to run the delete all wines code first
+  let id = parseInt(request.params.id);
+  database('vineyards').select()
+    .then(vineyards => {
+      const existingVineyard = vineyards.find(vineyard => {
+        return id === vineyard.id
+      })
+      if(existingVineyard) {
+        database('wines').where('vineyard_id', id).delete()
+          .then(() => {
+            database('vineyards').where('id', id).delete()
+              .then(() => {
+                response.status(200).json(`Successfully deleted vineyard with the id of ${id} as well as wines with the vineyard_id of ${id}`)
+              })
+            })
+      } else {
+        response.status(404).json(`Error on deletion: cannot find resource specified (vineyard id: ${id}). Check the id specified.`)
+      }
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
 });
 
 app.get('/api/v1/wines', (request, response) => {
