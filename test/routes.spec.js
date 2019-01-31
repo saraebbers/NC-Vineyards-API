@@ -132,7 +132,7 @@ describe('API Routes for vineyards', () => {
         response.should.be.json;
         response.should.be.a('object');
         response.body.should.have.property('message');
-        response.body.message.should.equal('Could not find any resources matching your query, please check your query string and try again.')
+        response.body.message.should.equal(`Could not find any resources matching your query (searchable terms are 'region' and 'name').`)
         done()
       })
     })
