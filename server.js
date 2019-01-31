@@ -78,13 +78,23 @@ app.get('/api/v1/vineyards/:id', (request, response) => {
 });
 
 app.post('/api/v1/vineyards', (request, response) => {
-  // add a vineyard assuming correct entry in body
-  //return 201 successful creation, return id
-  //return 422 cant make new entry with error message
-  // catch 500
+  const vineyard = request.body;
+
+  for(let requiredParameter of ['name', 'address', 'website', 'phone', 'region']) {
+    if(!vineyard[requiredParameter]) {
+      return response.status(422).json({message: `Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "${requiredParameter}" property.`})
+    }
+  }
+  database('vineyards').insert(vineyard, 'id')
+  .then(vineyard => {
+    response.status(201).json({ id: vineyard[0] })
+  })
+  .catch(error => {
+    response.status(500).json(`Error retrieving data: ${error}`)
+  })
 });
 
-app.put('/api/v1/vineyards', (request, response) => {
+app.put('/api/v1/vineyards/:id', (request, response) => {
   // fix information assuming correct entry-- Block efforts to change the id
   //return (201) for successful update return id
   // return (?ERROR) if cant successfully update, 
@@ -123,7 +133,6 @@ app.get('/api/v1/wines', (request, response) => {
   .catch(error => {
     response.status(500).json(`Error retrieving data: ${error}`)
   })
-  // add this to a test, eventhough we have it written
 });
 
 app.get('/api/v1/wines/:id', (request, response) => {
@@ -145,13 +154,23 @@ app.get('/api/v1/wines/:id', (request, response) => {
 });
 
 app.post('/api/v1/wines', (request, response) => {
-  // add a vineyard assuming correct entry in body
-  //return 201 successful creation, return id
-  //return 422 cant make new entry with error message
-  // catch 500
+  const wine = request.body;
+
+  for(let requiredParameter of ['name', 'type', 'vineyard_id', 'color' ]) {
+    if(!wine[requiredParameter]) {
+      return response.status(422).json({message: `Expected Format: { name: <string>, type: <string>, color: <string> vineyard_id: <number>.  You are missing a "${requiredParameter}" property.`})
+    }
+  }
+  database('wines').insert(wine, 'id')
+  .then(wine => {
+    response.status(201).json({ id: wine[0] })
+  })
+  .catch(error => {
+    response.status(500).json(`Error retrieving data: ${error}`)
+  })
 });
 
-app.put('/api/v1/wines', (request, response) => {
+app.put('/api/v1/wines/:id', (request, response) => {
   // fix information assuming correct entry-- Block efforts to change the id
   //return (201) for successful update return id
   // return (422) if cant successfully update, 
