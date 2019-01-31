@@ -2,7 +2,7 @@
 
 #### Time to relax and enjoy a stroll through our selection of beautiful North Carolina Vineyards. This API lets you find up to 30 stunning vineyards and some of thier associated wines while providing location and contact information for each vineyard so you can plan your own Northern Carolina vineyard tour depending on the area you plan on trekking through! A PostgreSQL database with a well documented API and built with Node.js, Express and Knex.js.
 
-### How to Use:
+## How to Use:
 
 #### Install and Start Server
 * Clone this repo.
@@ -25,7 +25,8 @@
 
 * `npm test`
 
-### API Endpoints
+## API Endpoints:
+
 #### Vineyards
 ```
 GET /api/v1/vineyards // get all vineyards
