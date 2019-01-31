@@ -8,21 +8,21 @@ const createVineyard = (knex, vineyard) => {
     address: vineyard.address,
     phone: vineyard.phoneNumber
   }, 'id')
-  .then(vineyardId => {
-    let winePromises = [];
+    .then(vineyardId => {
+      let winePromises = [];
 
-    vineyard.wines.forEach(wine => {
-      winePromises.push(
-        createWine(knex, {
-          name: wine.name,
-          color: wine.color,
-          type: wine.type,
-          vineyard_id: vineyardId[0]
-        })
-      )
-    });
-    return Promise.all(winePromises)
-  })
+      vineyard.wines.forEach(wine => {
+        winePromises.push(
+          createWine(knex, {
+            name: wine.name,
+            color: wine.color,
+            type: wine.type,
+            vineyard_id: vineyardId[0]
+          })
+        )
+      });
+      return Promise.all(winePromises)
+    })
 }
 
 const createWine = (knex, wine) => {

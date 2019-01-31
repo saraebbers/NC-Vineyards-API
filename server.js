@@ -198,16 +198,16 @@ app.put('/api/v1/wines/:id', (request, response) => {
       })
       if (foundWine) {
         database('wines').where('id', id).update(updatedWine)
-        .then(() => {
-        response.status(201).json({id: id})
-      })
-    } else {
-      response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
-    }
-  })
-  .catch(error => {
-    response.status(500).json(`Error updating data: ${error}`)
-  })
+          .then(() => {
+            response.status(201).json({id})
+          })
+      } else {
+        response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
+      }
+    })
+    .catch(error => {
+      response.status(500).json(`Error updating data: ${error}`)
+    })
 });
 
 app.delete('/api/v1/wines/:id', (request, response) => {
@@ -220,9 +220,9 @@ app.delete('/api/v1/wines/:id', (request, response) => {
 
       if (existingWine) {
         database('wines').where('id', id).delete()
-        .then(wine => {
-          response.status(200).json(`Successfully deleted wine with the id of ${id}`)
-        })
+          .then(() => {
+            response.status(200).json(`Successfully deleted wine with the id of ${id}`)
+          })
       } else {
         response.status(404).json(`Error on deletion: cannot find resource specified (wine id: ${id}). Check the id specified.`)
       }
