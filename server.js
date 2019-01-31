@@ -151,6 +151,7 @@ app.get('/api/v1/wines', (request, response) => {
   })
 });
 
+
 app.get('/api/v1/wines/:id', (request, response) => {
   const { id } = request.params
   database('wines').select()
