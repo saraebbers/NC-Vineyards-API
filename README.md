@@ -62,6 +62,27 @@ PUT /api/v1/wines/:vineyard_id  // edit a given wine with corrected information 
 DELETE /api/v1/wines/:id  // delete a specific wine
 
 ```
+### Screenshots of various requests to the server utilizing the POSTMAN application.
+#### Screenshot of a GET request to the vineyards database.
+![screen shot 2019-01-31 at 12 51 39 pm](https://user-images.githubusercontent.com/40974490/52081920-a493a500-2558-11e9-8118-7bb01cedcadb.png)
+
+#### Screenshot of a GET request to the wines database.
+![screen shot 2019-01-31 at 12 52 18 pm](https://user-images.githubusercontent.com/40974490/52081966-cab94500-2558-11e9-866c-5287f3ce9d9f.png)
+
+#### Screenshot of a QUERY GET request as well as the response.
+![screen shot 2019-01-31 at 12 54 15 pm](https://user-images.githubusercontent.com/40974490/52082031-f0464e80-2558-11e9-8e6a-f1265dd095bc.png)
+
+![screen shot 2019-01-31 at 12 54 25 pm](https://user-images.githubusercontent.com/40974490/52082156-3ef3e880-2559-11e9-907f-028ce17f2dbf.png)
+
+#### Screenshot of a POST request to the vineyards database as well as the response.
+![screen shot 2019-01-31 at 12 57 25 pm](https://user-images.githubusercontent.com/40974490/52082335-c3df0200-2559-11e9-97d8-a96736f808f2.png)
+
+#### Screenshot of a PUT request to the wines database as well as the response.
+![screen shot 2019-01-31 at 1 00 21 pm](https://user-images.githubusercontent.com/40974490/52082691-b7a77480-255a-11e9-875e-7e772e799aba.png)
+
+#### Example of a DELETE request to the wines database as well as the response.
+![screen shot 2019-01-31 at 1 00 48 pm](https://user-images.githubusercontent.com/40974490/52082768-e32a5f00-255a-11e9-99f5-7fcab4bde177.png)
+
 
 ## To Contribute to the Project:
 
@@ -83,17 +104,19 @@ DELETE /api/v1/wines/:id  // delete a specific wine
 ## Technologies Used
 - Node.js
 - Express
-- Knex.js
+- Knex
 - Heroku
 - Mocha
 - Chai 
 - Chai-http
+- TravisCI
+- Git/Github
 
 ## Project Requirements
 Project spec [link](http://frontend.turing.io/projects/build-your-own-backend.html).
 
 Backend Checklist [link](http://frontend.turing.io/projects/build-your-own-backend.html).
 
-## Database created and designed by Cody Price and Sara Ebbers.
+## Database/Server created and designed by Cody Price and Sara Ebbers.
 
 [![Waffle.io - Issues in progress](https://badge.waffle.io/Cody-Price/BYOB.png?label=in%20progress&title=In%20Progress)](http://waffle.io/Cody-Price/BYOB)
