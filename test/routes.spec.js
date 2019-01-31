@@ -115,11 +115,11 @@ describe('API Routes for vineyards', () => {
       chai.request(server)
       .post('/api/v1/vineyards')
       .send({
-          name: 'Happy Camper Vineyard',
-          address: '123 Street Rd, NC',
-          website: 'www.WeAreSoHappy',
-          phone: '(555) 867-5309',
-          region: 'Piedmont'
+        name: 'Happy Camper Vineyard',
+        address: '123 Street Rd, NC',
+        website: 'www.WeAreSoHappy',
+        phone: '(555) 867-5309',
+        region: 'Piedmont'
       })
       .end((err, response) => {
         response.should.have.status(201);
@@ -146,13 +146,13 @@ describe('API Routes for vineyards', () => {
         response.should.be.json;
         response.body.should.be.a('object');
         response.body.should.have.property('message');
-        response.body.message.should.equal('Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "region" property.')
+        response.body.message.should.equal('Expected Format: { name: <string>, address: <string>, website: <string>, phone: <string of (xxx) xxx-xxxx>, region: <string of Coast, Mountain, or Peidmont>  }.  You are missing a "region" property.');
         done()
       })
     })
   })
 
-  
+
 });
 
 describe('API Routes for Wines', () => {
@@ -192,7 +192,6 @@ describe('API Routes for Wines', () => {
         response.should.be.json;
         response.should.be.a('object');
         response.body.id.should.equal(1);
-        response.body.vineyard_id.should.equal(1)
         response.body.should.have.property('name');
         response.body.should.have.property('type');
         response.body.should.have.property('vineyard_id');
@@ -233,5 +232,46 @@ describe('API Routes for Wines', () => {
       })
     })
   })
+
+  describe('POST /api/v1/wines', () => {
+    it('should add a new wine if all of the required params are present', (done) => {
+      chai.request(server)
+      .post('/api/v1/wines')
+      .send({
+        name: 'Carolina Blue Blueberry Special',
+        type: 'Sweet',
+        vineyard_id: 1,
+        color: 'blue'
+      })
+      .end((err, response) => {
+        response.should.have.status(201);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.id.should.equal(19);
+        response.body.should.have.property('id');
+        response.body.id.should.be.a('number');
+        done()
+      })
+    })
+
+    it('should return a status code of 422 if one of the required params is not present', (done) => {
+      chai.request(server)
+      .post('/api/v1/wines')
+      .send({
+          name: 'Carolina Blue Blueberry Special',
+          color: 'blue',
+          type: 'Sweet'
+      })
+      .end((err, response) => {
+        response.should.have.status(422);
+        response.should.be.json;
+        response.body.should.be.a('object');
+        response.body.should.have.property('message');
+        response.body.message.should.equal('Expected Format: { name: <string>, type: <string>, color: <string> vineyard_id: <number>.  You are missing a "vineyard_id" property.');
+        done()
+      })
+    })
+  })
+
 });
 
