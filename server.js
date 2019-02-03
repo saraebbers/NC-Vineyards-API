@@ -109,7 +109,7 @@ app.put('/api/v1/vineyards/:id', (request, response) => {
             response.status(201).json({id})
           })
       } else {
-        response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
+        response.status(404).json({message: 'This id does not match an Id currently in the database, unable to update'})
       }
     })
     .catch(error => {

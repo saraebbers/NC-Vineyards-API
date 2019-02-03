@@ -238,7 +238,7 @@ describe('API Routes for vineyards', () => {
         })
     })
 
-    it('should return a 422 error if passed an id that does not exist', (done) => {
+    it('should return a 404 error if passed an id that does not exist', (done) => {
       chai.request(server)
         .put('/api/v1/vineyards/3984')
         .send({ 
@@ -246,7 +246,7 @@ describe('API Routes for vineyards', () => {
           phone: '(555) 555-5432',
         })
         .end((err, response) => {
-          response.should.have.status(422);
+          response.should.have.status(404);
           response.should.be.json;
           response.should.be.a('object');
           response.body.should.have.property('message');
