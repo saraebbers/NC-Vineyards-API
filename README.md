@@ -20,7 +20,7 @@ Project spec [link](http://frontend.turing.io/projects/build-your-own-backend.ht
 Backend Checklist [link](http://frontend.turing.io/projects/build-your-own-backend.html).
 
 ## API Endpoints
-API possible endpoints: [link](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
+API possible endpoints located here: [API_ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
 
 ## Getting Started
 If you would like to start working with our API on your own feel free to follow the getting started guide located here: [GETTING_STARTED](https://github.com/Cody-Price/BYOB/blob/master/GETTING_STARTED.md)
