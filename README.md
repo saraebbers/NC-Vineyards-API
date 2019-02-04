@@ -23,9 +23,9 @@ Backend Checklist [link](http://frontend.turing.io/projects/build-your-own-backe
 API possible endpoints: [link](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
 
 ## Getting Started
-If you would like to start working with our API on your own feel free to follow the getting started guide located here[link](https://github.com/Cody-Price/BYOB/blob/master/GETTING_STARTED.md)
+If you would like to start working with our API on your own feel free to follow the getting started guide located here: [GETTING_STARTED](https://github.com/Cody-Price/BYOB/blob/master/GETTING_STARTED.md)
 
 ## Contributing
-If you are interested in contributing to the BYOB NC Vineyards API, please introduce yourself and have a look through our contributing guide located here[link](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
+If you are interested in contributing to the BYOB NC Vineyards API, please introduce yourself and have a look through our contributing guide located here: [CONTRIBUTING](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
 
 ## Database/Server created and designed by Cody Price and Sara Ebbers.
