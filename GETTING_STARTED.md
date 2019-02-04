@@ -55,6 +55,8 @@ If you run into problems, feel free to reach out on GitHub and/or check with the
 
 [BACK TO README](https://github.com/Cody-Price/BYOB)
 
+[TO API ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
+
 [TO CONTRIBUTIONS](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
 
-[TO API ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
+
