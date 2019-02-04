@@ -145,13 +145,10 @@ DELETE /api/v1/wines/:id  // delete a specific wine
 
 - To send a Pull Request via GitHub:
     - Checkout a new branch
-    - Add a forked version of this repo as your remote
     - Push up changes to your forked repo
-    - Request the Pull Request to the original repo
-    - Include a brief commit message details the changes you have made
-    - Make sure to write tests for the front end
-    - Make sure all tests are passing before you make a Pull Request
-    - Before submitting, Rebase your work on the current master branch
+    - Request the Pull Request to the original repo following the PR template
+    - Include a brief commit message details the changes you have made, including a note ensuring that tests and linter were passing prior to the pull.  (If you have a failing lint issue please include a screen shot of both the issue and code you wrote)
+    - Before submitting, Rebase your work on the current master branch (for Rebase workflow questions please reference at: `https://git-scm.com/docs/git-rebase`
 
 ## Technologies Used
 - Node.js
