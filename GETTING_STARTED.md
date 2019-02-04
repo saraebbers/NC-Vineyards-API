@@ -54,7 +54,7 @@ If the above matches your terminal your server is now running on http://localhos
 to this one in your browser:
 - ![screen shot 2019-02-04 at 1 37 29 pm](https://user-images.githubusercontent.com/40974490/52235722-30237380-2882-11e9-8bee-fc6a7aaddf70.png)
 
-If you need to exit the server at any time you can use the following command:
+If you need to exit the server at any time you can use the following command in your terminal:
 * `control + c`
 
 ## Troubleshooting
