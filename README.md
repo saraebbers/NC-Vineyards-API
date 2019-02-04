@@ -15,9 +15,9 @@
 - Git/Github
 
 ## Project Requirements
-[Project Specification](http://frontend.turing.io/projects/build-your-own-backend.html).
+This project was part of the Turing School of Software & Design MOD-4 Curriculum. Students were provided 3 days to build the server. The following week project expanded to include maintainer and contributor requirements.
 
-[Back End Checklist](http://frontend.turing.io/projects/build-your-own-backend.html).
+[Project Specification](http://frontend.turing.io/projects/build-your-own-backend.html).
 
 ## API Endpoints
 API possible endpoints located here: [API_ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
