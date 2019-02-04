@@ -49,13 +49,16 @@ After seeding your database, it is time to start your server.  If the script suc
 * `npm install`
 * `npm start`
 
+If you need to exit the server at any time you can use the following command:
+* `control + c`
+
 ## Ensure your code is Tested prior to making a PR
 Tests, are run using Mocha, Chai and ChaiHttp.  To run the test suite, first prepare the test database: 
 
 First, you will need to create the testing environment database on your local machine.  You do this by typing the following commands into your terminal: 
 
 * `psql`
-* `CREATE DATABASE vineyards;`
+* `CREATE DATABASE vineyardstest;`
 
 Exit PostgreSQL with the command `\q`
 
@@ -72,7 +75,7 @@ In order to run the linter type in the following command:
 * `eslint <filepath>`
 
 ## Troubleshooting
-If you run into problems, feel free to reach out on git hub and/or check with the developer community on slack.  
+If you run into problems, feel free to reach out on GitHub and/or check with the Developer Community on slack.  
 
 ## API Endpoints:
 
