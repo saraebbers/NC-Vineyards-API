@@ -1,6 +1,7 @@
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile.js')[environment];
-const database = require('knex')(configuration)
+const database = require('knex')(configuration);
+const cors = require('cors');
 
 
 const express = require('express');
@@ -9,7 +10,9 @@ const bodyParser = require('body-parser');
 
 app.use( bodyParser.json() );
 
-app.set('port', process.env.PORT || 3000);
+app.use( cors() );
+
+app.set('port', process.env.PORT || 3001);
 
 app.locals.title = 'NC Vineyards';
 
