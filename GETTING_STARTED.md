@@ -47,6 +47,10 @@ After seeding your database, it is time to start your server.  If the script suc
 * `npm install`
 * `npm start`
 
+Your terminal should now have the message: 
+
+If the above matches your terminal your server is now running on `http://localhost:3001`
+
 If you need to exit the server at any time you can use the following command:
 * `control + c`
 
