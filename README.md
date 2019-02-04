@@ -15,9 +15,9 @@
 - Git/Github
 
 ## Project Requirements
-Project spec [link](http://frontend.turing.io/projects/build-your-own-backend.html).
+[Project Specification](http://frontend.turing.io/projects/build-your-own-backend.html).
 
-Backend Checklist [link](http://frontend.turing.io/projects/build-your-own-backend.html).
+[Back End Checklist](http://frontend.turing.io/projects/build-your-own-backend.html).
 
 ## API Endpoints
 API possible endpoints located here: [API_ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
