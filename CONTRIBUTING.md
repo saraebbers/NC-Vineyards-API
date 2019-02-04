@@ -1,11 +1,16 @@
-#CONTRIBUTING
+# CONTRIBUTING
 
 ## To Contribute to the Project:
 
-- Follow the setup instructions above to get the app up and running locally on your machine.
+- Follow the setup instructions located in the [GETTING_STARTED](https://github.com/Cody-Price/BYOB/blob/master/GETTING_STARTED.md) guide, to get the app up and running locally on your machine.
 
 - Our list of Issues on GitHub Issues: (https://github.com/Cody-Price/BYOB/issues)
-  Please use these issues to direct the contributions you desire to make.
+Please use these issues to direct the contributions you desire to make.
+  
+  ### OR
+  
+- You may utilize the Waffle.io board if it is more to your liking.
+[![Waffle.io - Issues in progress](https://badge.waffle.io/Cody-Price/BYOB.png?label=in%20progress&title=In%20Progress)](http://waffle.io/Cody-Price/BYOB)
 
 - To send a Pull Request via GitHub:
     - Checkout a new branch
@@ -36,5 +41,4 @@ Linting ensures all our code has the same standards.  You can review Linting sta
 In order to run the linter type in the following command:
 * `eslint <filepath>`
 
-## Contributors Waffle.io page
-[![Waffle.io - Issues in progress](https://badge.waffle.io/Cody-Price/BYOB.png?label=in%20progress&title=In%20Progress)](http://waffle.io/Cody-Price/BYOB)
+
