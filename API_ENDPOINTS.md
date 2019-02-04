@@ -55,3 +55,9 @@ DELETE /api/v1/wines/:id  // delete a specific wine
 
 #### Example of a DELETE request to the wines database as well as the response.
 ![screen shot 2019-01-31 at 1 00 48 pm](https://user-images.githubusercontent.com/40974490/52082768-e32a5f00-255a-11e9-99f5-7fcab4bde177.png)
+
+[BACK TO README](https://github.com/Cody-Price/BYOB)
+
+[TO GETTING_STARTED](https://github.com/Cody-Price/BYOB/blob/master/GETTING_STARTED.md)
+
+[TO CONTRIBUTIONS](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
