@@ -42,6 +42,6 @@ Linting ensures all our code has the same standards.  You can review Linting sta
 In order to run the linter type in the following command:
 * `eslint <filepath>`
 
-[BACK TO README](https://github.com/Cody-Price/BYOB/edit/master/README.md)
+[BACK TO README](https://github.com/Cody-Price/BYOB/master/README.md)
 
 
