@@ -55,5 +55,5 @@ If you run into problems, feel free to reach out on GitHub and/or check with the
 
 [BACK TO README](https://github.com/Cody-Price/BYOB)
 
-[ON TO CONTRIBUTIONS](https://github.com/Cody-Price/BYOB)
+[TO CONTRIBUTIONS](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
 
