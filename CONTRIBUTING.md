@@ -43,3 +43,7 @@ In order to run the linter type in the following command:
 * `eslint <filepath>`
 
 [BACK TO README](https://github.com/Cody-Price/BYOB)
+
+[TO GETTING_STARTED](https://github.com/Cody-Price/BYOB/blob/master/GETTING_STARTED.md)
+
+[TO API_ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
