@@ -48,6 +48,7 @@ After seeding your database, it is time to start your server.  If the script suc
 * `npm start`
 
 Your terminal should now have the message: 
+![screen shot 2019-02-04 at 1 35 51 pm](https://user-images.githubusercontent.com/40974490/52235607-d4f18100-2881-11e9-9d64-d67991369634.png)
 
 If the above matches your terminal your server is now running on `http://localhost:3001`
 
