@@ -4,26 +4,75 @@
 
 ## How to Use:
 
-#### Install and Start Server
-* Clone this repo.
+#### Dependencies
+  These set up instructions assume that you already have the following installed:
+  * PostgreSQL
+  * Mocha / Chai / Chai-Http (for testing)
+  * Knex.js
+  * Node.js
+  * Express.js
+  * eslint
 
-* `npm install`
+## How to Install
+  If you are planning to contribute to our code (Which we WELCOME!), it is a good idea to begin by forking this repo using the fork button in the top-right corner of this screen.  You should then be able to use git clone to copy your fork onto your local machine.  
 
-* `npm start`
+#### How to Git Clone
+Open your terminal and navigate to the area you want your new directory to be located, and enter the following command:
+* `git clone https://github.com/YOUR_GITHUB_USERNAME_HERE/BYOB`
+
+Get into your new local copy of the BYOB directory:
+* `cd BYOB`
+
+And then add an `upstream` remote that points to the main repo:
+* `git remote add upstream https://github.com/Cody-Price/BYOB`
+
+Pull in the latest version of master from upstream (ie: the main repo)
+* `git pull upstream master`
+
+## Get yourself up and Running
 
 #### Create Postgres Database and Run Migrations
-* `brew install postgres`
+First, you will need to create the development environment database on your local machine.  You do this by typing the following commands into your terminal: 
 
-* `psql CREATE DATABASE vineyards;`
+* `psql`
+* `CREATE DATABASE vineyards;`
+
+Exit PostgreSQL with the command `\q`
+
+Next, you will need to create tables in the development database.  You do this with Knex.js:  The first line will create your tables, the next will seed them with 30 vineyards and 90 wines.  
 
 * `knex migrate:latest`
-
 * `knex seed:run`
 
-#### Testing 
-* `psql CREATE DATABASE vineyardstest;`
+After seeding your database, it is time to start your server.  If the script succeeds you are ready to start developing.  If not, take a look at the output, as it should be informative enough to help you troubleshoot.  
+
+* `npm install`
+* `npm start`
+
+## Ensure your code is Tested prior to making a PR
+Tests, are run using Mocha, Chai and ChaiHttp.  To run the test suite, first prepare the test database: 
+
+First, you will need to create the testing environment database on your local machine.  You do this by typing the following commands into your terminal: 
+
+* `psql`
+* `CREATE DATABASE vineyards;`
+
+Exit PostgreSQL with the command `\q`
+
+Next, you will need to run the tests.  You can do this with
 
 * `npm test`
+
+Finally, update any pre-existing test to ensure functionality, and/or add a test to ensure your new additions have been tested.  This is required to have your PR considered for merging.  
+
+## Ensure your code is Linted prior to making a PR
+Linting ensures all our code has the same standards.  You can review Linting standards in the root directory .eslintrc.js file
+
+In order to run the linter type in the following command:
+* `eslint <filepath>`
+
+## Troubleshooting
+If you run into problems, feel free to reach out on git hub and/or check with the developer community on slack.  
 
 ## API Endpoints:
 
