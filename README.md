@@ -167,5 +167,3 @@ Project spec [link](http://frontend.turing.io/projects/build-your-own-backend.ht
 Backend Checklist [link](http://frontend.turing.io/projects/build-your-own-backend.html).
 
 ## Database/Server created and designed by Cody Price and Sara Ebbers.
-
-[![Waffle.io - Issues in progress](https://badge.waffle.io/Cody-Price/BYOB.png?label=in%20progress&title=In%20Progress)](http://waffle.io/Cody-Price/BYOB)
