@@ -28,6 +28,6 @@ If you would like to start working with our API on your own feel free to follow 
 ## Contributing
 If you are interested in contributing to the BYOB NC Vineyards API, please introduce yourself and have a look through our contributing guide located here: [CONTRIBUTING](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
 
-#### List of contributors:
+### List of contributors:
 - Cody Price
 - Sara Ebbers
