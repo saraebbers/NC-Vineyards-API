@@ -57,3 +57,4 @@ If you run into problems, feel free to reach out on GitHub and/or check with the
 
 [TO CONTRIBUTIONS](https://github.com/Cody-Price/BYOB/blob/master/CONTRIBUTING.md)
 
+[TO API ENDPOINTS](https://github.com/Cody-Price/BYOB/blob/master/API_ENDPOINTS.md)
