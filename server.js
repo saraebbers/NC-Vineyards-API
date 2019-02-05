@@ -21,45 +21,49 @@ app.get('/', (request, response) => {
   response.status(200).json({message: 'NC Vineyards'})
 })
 
-app.get('/api/v1/vineyards', (request, response) => {
-  let queryString = request.query
+const filterByQueryParam = (vineyards, filter, search) => {
+  return vineyards.filter(vineyard => {
+    return vineyard[filter].toLowerCase().includes(search.toLowerCase()) ||
+      search.toLowerCase().includes(vineyard[filter].toLowerCase())
+  })
+}
 
-  if (Object.keys(queryString).length) {
-    let region;
-    let vineyardName;
-    if (queryString.region) {
-      region = queryString.region.toLowerCase()
-    }
-    if (queryString.name) {
-      vineyardName = queryString.name.toLowerCase()
-    }
+const searchForVineyard = (req, res, next) => {
+  if (Object.keys(req.query).length) {
+    let region = req.query.region || ''
+    let name = req.query.name || ''
+    let matchingVineyards = []
+    
     database('vineyards').select()
       .then(vineyards => {
-        let matchingVineyards = vineyards.filter(vineyard => {
-          if (vineyard.region.toLowerCase() === region) {
-            return vineyard
-          } else if (vineyard.name.toLowerCase() === vineyardName) {
-            return vineyard
-          }
-        })
-        if (matchingVineyards.length) {
-          response.status(200).json(matchingVineyards)
+        if (region !== '') {
+          matchingVineyards = filterByQueryParam(vineyards, 'region', region)
+        } else if (name !== '') {
+          matchingVineyards = filterByQueryParam(vineyards, 'name', name)
         } else {
-          response.status(404).json({message: `Could not find any resources matching your query (searchable terms are 'region' and 'name').`})
+          return res.status(400).json({ message: 'Invalid query parameter(s). You may search by "name" or "region" only.' })
         }
+
+        matchingVineyards.length
+          ? res.status(200).json(matchingVineyards)
+          : res.status(404).json({message: `Could not find any vineyards matching your query.`})
       })
       .catch(error => {
-        response.status(500).json(`Error retrieving data: ${error}`)
+        res.status(500).json(`Error retrieving data: ${error}`)
       })
   } else {
-    database('vineyards').select()
-      .then(vineyards => {
-        response.status(200).json(vineyards);
-      })
-      .catch(error => {
-        response.status(500).json(`Error retrieving data: ${error}`)
-      })
+    next()
   }
+}
+
+app.get('/api/v1/vineyards', searchForVineyard, (request, response) => {
+  database('vineyards').select()
+    .then(vineyards => {
+      response.status(200).json(vineyards);
+    })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.get('/api/v1/vineyards/:id', (request, response) => {
