@@ -41,7 +41,7 @@ const searchForVineyard = (req, res, next) => {
         } else if (name !== '') {
           matchingVineyards = filterByQueryParam(vineyards, 'name', name)
         } else {
-          res.status(422).json({ message: 'Invalid query parameter(s). You may search by "name" or "region" only.' })
+          res.status(400).json({ message: 'Invalid query parameter(s). You may search by "name" or "region" only.' })
         }
 
         matchingVineyards.length
