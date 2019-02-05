@@ -2,6 +2,8 @@
 
 #### Time to relax and enjoy a stroll through our selection of beautiful North Carolina Vineyards. This API lets you find up to 30 stunning vineyards and some of thier associated wines while providing location and contact information for each vineyard so you can plan your own Northern Carolina vineyard tour depending on the area you plan on trekking through!
 
+## Deployed Application
+This application is deployed at: [NC Vineyard Production](https://buildyourownbackendcodysara.herokuapp.com)
 
 ## Technologies Used
 - Node.js
