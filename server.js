@@ -21,7 +21,7 @@ app.get('/', (request, response) => {
   response.status(200).json({message: 'NC Vineyards'})
 })
 
-const queryFilter = (vineyards, filter, search) => {
+const filterByQueryParam = (vineyards, filter, search) => {
   return vineyards.filter(vineyard => {
     return vineyard[filter].toLowerCase().includes(search.toLowerCase()) ||
       search.toLowerCase().includes(vineyard[filter].toLowerCase())
@@ -37,9 +37,9 @@ const searchForVineyard = (req, res, next) => {
     database('vineyards').select()
       .then(vineyards => {
         if (region !== '') {
-          matchingVineyards = queryFilter(vineyards, 'region', region)
+          matchingVineyards = filterByQueryParam(vineyards, 'region', region)
         } else if (name !== '') {
-          matchingVineyards = queryFilter(vineyards, 'name', name)
+          matchingVineyards = filterByQueryParam(vineyards, 'name', name)
         } else {
           res.status(422).json({ message: 'Invalid query parameter(s). You may search by "name" or "region" only.' })
         }
@@ -54,17 +54,16 @@ const searchForVineyard = (req, res, next) => {
   } else {
     next()
   }
- 
 }
 
 app.get('/api/v1/vineyards', searchForVineyard, (request, response) => {
-    database('vineyards').select()
-      .then(vineyards => {
-        response.status(200).json(vineyards);
-      })
-      .catch(error => {
-        response.status(500).json(`Error retrieving data: ${error}`)
-      })
+  database('vineyards').select()
+    .then(vineyards => {
+      response.status(200).json(vineyards);
+    })
+    .catch(error => {
+      response.status(500).json(`Error retrieving data: ${error}`)
+    })
 });
 
 app.get('/api/v1/vineyards/:id', (request, response) => {
