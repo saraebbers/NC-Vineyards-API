@@ -217,6 +217,33 @@ app.put('/api/v1/wines/:id', (request, response) => {
     })
 });
 
+app.patch('/api/v1/wines/:id', (request, response) => {
+  const updatedWineInfo = request.body;
+  const { name, type, color } = request.body;
+  const id = parseInt(request.params.id);
+
+  database('wines').where('id', id).select()
+    .then(wine => {
+      if(!wine[0].id) {
+        throw new Error('The wine does not exist.')
+      } else if (updatedWineInfo) {
+        database('wines').where('id', id).update({
+          name, type, color}, '*')
+        .then((updatedWine) => {
+          response.status(202).send({message: updatedWine[0]})
+        })
+        .catch(() => {
+          response.status(422).send({message: 'Expected Format: { name: <string>, type: <string>, color: <string>.}'})
+        })
+      } else {
+          response.status(500).json({message: `There is an error of ${error}`})
+      }
+    })
+    .catch(error => {
+      response.status(404).send({message: `Wine ${id} does not exist.  Please resubmit request with existing id.`})
+    })
+})
+
 app.delete('/api/v1/wines/:id', (request, response) => {
   let id = parseInt(request.params.id);
   database('wines').select()

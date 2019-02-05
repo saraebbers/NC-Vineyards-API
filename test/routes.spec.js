@@ -439,6 +439,59 @@ describe('API Routes for Wines', () => {
     })
   })
 
+    describe('PATCH /api/v1/wines', () => {
+    it('should update the valid key values associated with a given wine without altering the id, adding non valid keys, or deleting information that is not meant to be altered', (done) => {
+      chai.request(server)
+        .patch('/api/v1/wines/1')
+        .send({ 
+          name: 'Carolina Blue',
+          type: 'Merlot',
+          somethingWrong: 'SomethingWrong'
+        })
+        .end((err, response) => {
+          response.should.have.status(202);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.message.should.be.a('object');
+          done()
+        })
+    })
+
+    it('should return a 404 error if passed an id that does not exist', (done) => {
+      chai.request(server)
+        .patch('/api/v1/wines/3984')
+        .send({ 
+          name: 'Carolina Red Strawberry Special',
+          type: 'So Sweet you can only have 1',
+          color: 'Pink'
+        })
+        .end((err, response) => {
+          response.should.have.status(404);
+          response.should.be.json;
+          response.should.be.a('object');
+          response.body.should.have.property('message');
+          response.body.message.should.equal('Wine 3984 does not exist.  Please resubmit request with existing id.');
+          done()
+        })
+    })
+
+    it('should return a 422 error if provided only invalid keys to update', (done) => {
+      chai.request(server)
+        .patch('/api/v1/wines/1')
+        .send({
+          SomethingWrong: 'something'
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          response.should.be.json;
+          response.should.be.a('object');
+          response.body.should.have.property('message');
+          response.body.message.should.equal('Expected Format: { name: <string>, type: <string>, color: <string>.}')
+          done()
+        })
+    })
+  })
+
   describe('DELETE /api/v1/wines', () => {
     it('should return a status of 200 if wine was successfully deleted', (done) => {
       chai.request(server)
