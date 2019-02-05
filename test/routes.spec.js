@@ -401,39 +401,58 @@ describe('API Routes for Wines', () => {
   })
 
   describe('PUT /api/v1/wines', () => {
-    it('should update the values associated with a given wine without altering the id or deleting information that is not meant to be altered', (done) => {
+    it('should return a status code of 422 if one of the required params is not present', (done) => {
+      chai.request(server)
+        .put('/api/v1/wines/1')
+        .send({
+          name: 'Carolina Blue Blueberry Special',
+          color: 'blue',
+          type: 'Sweet'
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('message');
+          response.body.message.should.equal('Expected Format: { name: <string>, type: <string>, color: <string> vineyard_id: <number>.  You are missing a "vineyard_id" property.');
+          done()
+        })
+    })
+
+    it('should update the values associated with a given wine without altering the id or deleting information that is not meant to be altered when all required params are provided', (done) => {
       chai.request(server)
         .put('/api/v1/wines/1')
         .send({ 
           name: 'Carolina Red Strawberry Special',
           type: 'So Sweet you can only have 1',
-          color: 'Pink'
+          color: 'Pink',
+          vineyard_id: 1
         })
         .end((err, response) => {
           response.should.have.status(201);
           response.should.be.json;
           response.body.should.be.a('object');
-          response.body.id.should.equal(1);
-          response.body.should.have.property('id');
-          response.body.id.should.be.a('number');
+          response.body.message.should.be.a('object');
+          response.body.should.have.property('message');
           done()
         })
     })
 
-    it('should return a 422 error if passed an id that does not exist', (done) => {
+    it('should return a 404 error if passed an id that does not exist', (done) => {
       chai.request(server)
         .put('/api/v1/wines/3984')
         .send({ 
           name: 'Carolina Red Strawberry Special',
           type: 'So Sweet you can only have 1',
-          color: 'Pink'
+          color: 'Pink',
+          vineyard_id: 1
         })
         .end((err, response) => {
-          response.should.have.status(422);
+          response.should.have.status(404);
           response.should.be.json;
           response.should.be.a('object');
           response.body.should.have.property('message');
-          response.body.message.should.equal('This id does not match an Id currently in the database, unable to update');
+          response.body.message.should.equal('Wine 3984 does not exist.  Please resubmit request with existing id.');
           done()
         })
     })

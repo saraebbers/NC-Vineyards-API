@@ -195,25 +195,31 @@ app.post('/api/v1/wines', (request, response) => {
 });
 
 app.put('/api/v1/wines/:id', (request, response) => {
-  const updatedWine = request.body;
+  const updatedWineInfo = request.body;
   let id  = parseInt(request.params.id)
+  const { name, type, color, vineyard_id } = request.body;
 
-  database('wines').select()
-    .then(wines => {
-      let foundWine = wines.find(wine => {
-        return wine.id === id
+  for (let requiredParameter of ['name', 'type', 'vineyard_id', 'color' ]) {
+    if (!updatedWineInfo[requiredParameter]) {
+      return response.status(422).json({message: `Expected Format: { name: <string>, type: <string>, color: <string> vineyard_id: <number>.  You are missing a "${requiredParameter}" property.`})
+    }
+  }
+  database('wines').where('id', id).select()
+  .then(wine => {
+    if(!wine[0].id) {
+      throw new Error('The wine does not exist')
+    } else if (updatedWineInfo) {
+      database('wines').where('id', id).update({
+        name, type, vineyard_id, color}, '*')
+      .then((updatedWine) => {
+        response.status(201).send({message: updatedWine[0]})
       })
-      if (foundWine) {
-        database('wines').where('id', id).update(updatedWine)
-          .then(() => {
-            response.status(201).json({id})
-          })
-      } else {
-        response.status(422).json({message: 'This id does not match an Id currently in the database, unable to update'})
+    } else {
+          response.status(500).json({message: `There is an error of ${error}`})
       }
     })
     .catch(error => {
-      response.status(500).json(`Error updating data: ${error}`)
+      response.status(404).send({message: `Wine ${id} does not exist.  Please resubmit request with existing id.`})
     })
 });
 
