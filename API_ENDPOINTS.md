@@ -30,7 +30,7 @@ GET /api/v1/wines/:id // get a specific wine
 POST /api/v1/wines // create a new wine
 --> required parameters: 'name'(string), 'color'(string), 'type'(string), 'vineyard_id'(number, this is to be associated with the primary key id of the associated vineyard)
 
-PUT /api/v1/wines/:vineyard_id  // edit a given wine with corrected information for any one(or multiple) parameter(s) required in the POST wines endpoint directly above excluding the id (primary key).
+PUT /api/v1/wines/:id  // edit a given wine with corrected information for any one(or multiple) parameter(s) required in the POST wines endpoint directly above excluding the id (primary key).
 
 DELETE /api/v1/wines/:id  // delete a specific wine
 
